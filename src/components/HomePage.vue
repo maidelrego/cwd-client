@@ -6,16 +6,6 @@
           Campbell Wood Designs
         </p>
       </div>
-
-      <!-- <p class="mainHeader text-center">
-        Wood Campbell Designs
-      </p>
-      <p class="mainHeader text-center">
-        Campbell
-      </p>
-      <p class="mainHeader text-center">
-        Designs
-      </p> -->
     </v-parallax>
     <br>
     <br>
