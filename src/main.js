@@ -6,6 +6,12 @@ import vuetify from './plugins/vuetify'
 import VeeValidate from 'vee-validate';
 import { ValidationProvider, ValidationObserver } from 'vee-validate';
 
+import { VueMaskDirective } from 'v-mask'
+
+
+Vue.directive('mask', VueMaskDirective);
+
+
 Vue.component('ValidationProvider', ValidationProvider);
 Vue.component('ValidationObserver', ValidationObserver);
 

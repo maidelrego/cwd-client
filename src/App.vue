@@ -79,7 +79,7 @@ export default {
   background-color:#bea855
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Lobster+Two:ital@1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster+Two:ital@1&display=swap'); 
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 
 @media screen and (max-width: 540px) {

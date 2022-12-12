@@ -1,7 +1,10 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify/lib/framework';
+import VuetifyMask from 'vuetify-mask'
+Vue.use(VuetifyMask)
 
 Vue.use(Vuetify);
+Vue.component('PhoneNumberMask', () => import('@/components/Masks/PhoneNumberMask.vue'))
 
 export default new Vuetify({
   theme: {
