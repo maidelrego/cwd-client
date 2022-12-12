@@ -10,7 +10,7 @@
     <br>
     <br>
 
-    <p class="text-center mt-5 aboutUstext">About Us</p>
+    <p class="text-center mt-5 mainHeaders">About Us</p>
 
     <v-card-text>
       <p class="aboutUsBody mr-5 ml-5">

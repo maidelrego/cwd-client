@@ -2,7 +2,7 @@
   <v-card flat tile>
     <v-row>
       <v-col cols="12" class="justify-center align-center">
-        <p class="text-center mt-5 aboutUstext">Contact Us</p>
+        <p class="text-center mt-5 mainHeaders">Contact Us</p>
         <v-card-text>
           <p class="aboutUsBody contactForm">Need to get in touch with us? Fill out the form below and we will get back to you as
             soon as possible or drive on down to our location and we will be happy to help you in person.

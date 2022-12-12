@@ -96,7 +96,7 @@ export default {
     font-size: 3rem;
   }
 
-  .aboutUstext {
+  .mainHeaders {
     font-family: 'Lobster Two';
     color: #827717;
     font-size: 2rem;
@@ -122,7 +122,7 @@ export default {
     font-size: 4rem;
   }
 
-  .aboutUstext {
+  .mainHeaders {
     font-family: 'Lobster Two';
     color: #827717;
     font-size: 3rem;
