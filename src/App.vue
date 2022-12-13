@@ -83,6 +83,10 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 
 @media screen and (max-width: 540px) {
+  .iconSize {
+    font-size: 30px !important
+  }
+
   .textBox {
     margin-left: 5%;
     margin-right: 5%;
@@ -110,6 +114,10 @@ export default {
 }
 
 @media screen and (min-width: 540px) {
+  .iconSize {
+    font-size: 45px !important
+  }
+  
   .textBox {
     margin-left: 15%;
     margin-right: 15%;

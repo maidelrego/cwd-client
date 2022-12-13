@@ -2,24 +2,24 @@
   <v-card flat>
     <v-card-text>
       <v-row>
-        <v-col cols="4">
+        <v-col cols="12" sm="12" md="4" lg="4">
           <v-icon color="primary" class="mr-5" x-large>mdi-account</v-icon><span class="aboutUsBody">{{ fullName }}</span>
           <br>
           <v-icon color="primary" class="mr-5" x-large>mdi-phone</v-icon><span class="aboutUsBody">{{ quote.phone }}</span>
           <br>
           <v-icon color="primary" class="mr-5" x-large>mdi-map-marker</v-icon><span class="aboutUsBody">{{ fullAddress }}</span>
         </v-col>
-        <v-col cols="4">
+        <v-col cols="12" sm="12" md="4" lg="4">
           <v-icon color="primary" class="mr-5" x-large>mdi-door</v-icon><span class="aboutUsBody">{{ quote.doorDesign }}</span>
           <br>
           <v-icon color="primary" class="mr-5" x-large>mdi-brush-variant</v-icon><span class="aboutUsBody">{{ quote.finishColor }}</span>
           <br>
           <v-icon color="primary" class="mr-5" x-large>mdi-hanger</v-icon><span class="aboutUsBody">{{ quote.doorKit }}</span>
         </v-col>
-        <v-col cols="4">
+        <v-col cols="12" sm="12" md="4" lg="4">
           <v-icon color="primary" class="mr-5" x-large>mdi-hand-extended</v-icon><span class="aboutUsBody">{{ doorHandleString}}</span>
           <br>
-          <v-icon color="primary" class="mr-5" x-large>mdi-ruler</v-icon><span class="aboutUsBody">{{ quote.fullDimensions }}</span>
+          <v-icon color="primary" class="mr-5" x-large>mdi-ruler</v-icon><span class="aboutUsBody">{{ fullDimensions }}</span>
           <br>
           <v-icon color="primary" class="mr-5" x-large>{{ installOrDeliveryIcon }}</v-icon><span class="aboutUsBody">{{ installOrDeliveryString }}</span>
         </v-col>
@@ -48,7 +48,7 @@ export default {
       return `${this.quote.firstName} ${this.quote.lastName}`;
     },
     fullDimensions() {
-      return `${this.quote.dimensionsW} in x ${this.quote.dimensionsH} in`;
+      return `${this.quote.dimensionsH}in H  x ${this.quote.dimensionsW}in W`;
     },
     doorHandleString() {
       return 'Door Handle' + ' - ' + this.quote.doorHandle;

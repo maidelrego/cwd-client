@@ -10,26 +10,26 @@
           <img src="../assets/logo.png" class="logo">
           <p class="text-center mainHeaders">Info</p>
 
-          <v-row class="mt-5">
+          <v-row class="mt-5" justify="center">
             <v-col cols="12" sm="12" md="4" lg="4">
-              <v-text-field v-model="firstName" label="First Name" filled rounded dense />
+              <v-text-field v-model="firstName" label="First Name" filled rounded dense clearable />
             </v-col>
             <v-col cols="12" sm="12" md="4" lg="4">
-              <v-text-field v-model="lastName" label="Last Name" filled rounded dense />
+              <v-text-field v-model="lastName" label="Last Name" filled rounded dense clearable />
             </v-col>
             <v-col cols="12" sm="12" md="4" lg="4">
-              <PhoneNumberMask v-model="phone" label="Phone" filled rounded dense />
+              <PhoneNumberMask v-model="phone" label="Phone" filled rounded dense clearable />
             </v-col>
           </v-row>
 
-          <v-row>
+          <v-row justify="center">
             <v-col cols="12">
-              <v-text-field v-model="email" label="E-mail" filled rounded dense />
+              <v-text-field v-model="email" label="E-mail" filled rounded dense clearable />
             </v-col>
           </v-row>
 
-          <v-row>
-            <v-col cols="12">
+          <v-row justify="start">
+            <v-col cols="6">
               <v-radio-group v-model="installOrDelivery">
                 <v-radio label="Delivery?" value="Delivery"></v-radio>
                 <v-radio label="Install?" value="Install"></v-radio>
@@ -41,21 +41,21 @@
             </v-col>
           </v-row>
 
-          <v-row v-if="installOrDelivery === 'Delivery'">
+          <v-row justify="center" v-if="installOrDelivery === 'Delivery'">
             <v-col cols="12">
-              <v-text-field v-model="address" label="Address" filled rounded dense />
+              <v-text-field v-model="address" label="Address" filled rounded dense clearable />
             </v-col>
             <v-col cols="12">
-              <v-text-field v-model="address2" label="Address 2" filled rounded dense />
+              <v-text-field v-model="address2" label="Address 2" filled rounded dense clearable />
             </v-col>
             <v-col cols="12" sm="12" md="4" lg="4">
-              <v-text-field v-model="city" label="City" filled rounded dense />
+              <v-text-field v-model="city" label="City" filled rounded dense clearable />
             </v-col>
             <v-col cols="12" sm="12" md="4" lg="4">
-              <v-text-field v-model="state" label="State" filled rounded dense />
+              <v-text-field v-model="state" label="State" filled rounded dense clearable />
             </v-col>
             <v-col cols="12" sm="12" md="4" lg="4">
-              <v-text-field v-model="zip" label="Zip" filled rounded dense />
+              <v-text-field v-model="zip" label="Zip" filled rounded dense clearable />
             </v-col>
           </v-row>
         </v-card-text>
@@ -83,14 +83,14 @@
           <p class="text-center mainHeaders">Door Design</p>
           <p class="text-center mt-5">All our doors are made out of high grade cabinet pine</p>
 
-          <v-row>
-            <v-col v-for="{ url, name } in doorDesignsUrls" :key="url" cols="12" sm="12" md="3" lg="3">
+          <v-row justify="center">
+            <v-col v-for="{ url, name } in doorDesignsUrls" :key="url" cols="6" sm="6" md="2" lg="2">
               <v-card class="fill-height">
                 <v-img class="white--text align-end" :src="url" height="300" />
                 <v-card-text class="text-center">
                   <p class="text-center aboutUsBody">{{ name }}</p>
-                  <v-btn icon large @click="doorDesign = name">
-                    <v-icon :color="doorDesign === name ? 'primary' : ''" x-large>mdi-heart</v-icon>
+                  <v-btn icon @click="doorDesign = name">
+                    <v-icon class="iconSize" :color="doorDesign === name ? 'primary' : ''">mdi-heart</v-icon>
                   </v-btn>
                 </v-card-text>
               </v-card>
@@ -119,14 +119,14 @@
           <img src="../assets/logo.png" class="logo">
           <p class="text-center mainHeaders">Finish</p>
 
-          <v-row class="mt-5">
+          <v-row justify="center" class="mt-5">
             <v-col v-for="{ url, name } in finishColorsUrls" :key="url" cols="6" sm="6" md="2" lg="2">
               <v-card class="fill-height">
                 <v-img class="white--text align-end" :src="url" />
                 <v-card-text class="text-center">
                   <p class="text-center aboutUsBody">{{ name }}</p>
-                  <v-btn icon large @click="finishColor = name">
-                    <v-icon :color="finishColor === name ? 'primary' : ''" x-large>mdi-heart</v-icon>
+                  <v-btn icon @click="finishColor = name">
+                    <v-icon class="iconSize" :color="finishColor === name ? 'primary' : ''">mdi-heart</v-icon>
                   </v-btn>
                 </v-card-text>
               </v-card>
@@ -155,14 +155,14 @@
           <img src="../assets/logo.png" class="logo">
           <p class="text-center mainHeaders">Door Kits</p>
 
-          <v-row class="mt-5">
-            <v-col v-for="{ url, name } in doorKitsUrls" :key="url" cols="12" sm="12" md="4" lg="4">
+          <v-row justify="center" class="mt-5">
+            <v-col v-for="{ url, name } in doorKitsUrls" :key="url" cols="6" sm="3" md="3" lg="3">
               <v-card class="fill-height">
                 <v-img class="white--text align-end" :src="url" />
                 <v-card-text class="text-center">
                   <p class="text-center aboutUsBody">{{ name }}</p>
-                  <v-btn icon large @click="doorKit = name">
-                    <v-icon :color="doorKit === name ? 'primary' : ''" x-large>mdi-heart</v-icon>
+                  <v-btn icon @click="doorKit = name">
+                    <v-icon class="iconSize" :color="doorKit === name ? 'primary' : ''">mdi-heart</v-icon>
                   </v-btn>
                 </v-card-text>
               </v-card>
@@ -191,14 +191,14 @@
           <img src="../assets/logo.png" class="logo">
           <p class="text-center mainHeaders">Handles</p>
 
-          <v-row class="mt-5">
-            <v-col v-for="{ url, name } in handlesUrls" :key="url" cols="6" sm="6" md="4" lg="4">
+          <v-row justify="center" class="mt-5">
+            <v-col v-for="{ url, name } in handlesUrls" :key="url" cols="6" sm="3" md="2" lg="2">
               <v-card class="fill-height">
                 <v-img class="white--text align-end" :src="url" />
                 <v-card-text class="text-center">
                   <p class="text-center aboutUsBody">{{ name }}</p>
-                  <v-btn icon large @click="doorHandle = name">
-                    <v-icon :color="doorHandle === name ? 'primary' : ''" x-large>mdi-heart</v-icon>
+                  <v-btn icon @click="doorHandle = name">
+                    <v-icon class="iconSize" :color="doorHandle === name ? 'primary' : ''">mdi-heart</v-icon>
                   </v-btn>
                 </v-card-text>
               </v-card>
@@ -219,9 +219,38 @@
     </v-stepper-content>
 
     <v-stepper-step :complete="stepNumber > 6" step="6">
-      Review
+      Dimensions
     </v-stepper-step>
     <v-stepper-content step="6">
+      <v-card flat class="mx-auto mb-5">
+        <v-card-text>
+          <img src="../assets/logo.png" class="logo">
+          <p class="text-center mainHeaders">Dimensions</p>
+
+          <v-row class="mt-5" justify="center">
+            <v-col cols="12" sm="4" md="4" lg="4">
+              <v-text-field v-model="dimensionsW" label="Width" type="number" suffix="Inches" filled dense rounded clearable />
+              <v-text-field v-model="dimensionsH" label="Height" type="number" suffix="Inches" filled dense rounded clearable />
+            </v-col>
+          </v-row>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-btn text @click="stepNumber = stepNumber - 1">
+            <v-icon rigth>mdi-chevron-left</v-icon>Back
+          </v-btn>
+          <v-btn color="primary" @click="stepNumber = stepNumber + 1">
+            Continue<v-icon rigth>mdi-chevron-right</v-icon>
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+
+    </v-stepper-content>
+
+    <v-stepper-step :complete="stepNumber > 7" step="7">
+      Review
+    </v-stepper-step>
+    <v-stepper-content step="7">
       <v-card flat class="mx-auto mb-5">
         <v-card-text>
           <img src="../assets/logo.png" class="logo">
@@ -264,7 +293,7 @@ export default {
     }
   },
   beforeMount() {
-    this.fetchCloudInages()
+    this.fetchCloudImages()
   },
   computed: {
     ...mapState('Quotes', ['obj', 'error', 'changed']),
@@ -283,7 +312,9 @@ export default {
         'doorDesign',
         'finishColor',
         'doorKit',
-        'doorHandle'
+        'doorHandle',
+        'dimensionsW',
+        'dimensionsH'
       ],
       base: 'Quotes',
       mutation: 'INIT_OBJECT'
@@ -298,7 +329,7 @@ export default {
   },
   methods: {
     ...mapActions('Quotes', ['clear', 'reset', 'saveData', 'resetAddress']),
-    async fetchCloudInages() {
+    async fetchCloudImages() {
       await doAPIGet('cloudinary/doorDesigns').then((res) => {
         this.doorDesignsUrls = res.data
       })
@@ -313,7 +344,7 @@ export default {
       })
     }
   }
-  
+
 }
 </script>
 
