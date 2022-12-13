@@ -18,16 +18,9 @@
 
         <v-divider class="tabDivider" vertical></v-divider>
 
-        <v-tab active-class="primary white--text" to="galery">
+        <v-tab active-class="primary white--text" to="gallery">
           Gallery
           <v-icon>mdi-folder-multiple-image</v-icon>
-        </v-tab>
-
-        <v-divider class="tabDivider" vertical></v-divider>
-
-        <v-tab active-class="primary white--text" to="aboutUs">
-          About Us
-          <v-icon>mdi-account-group</v-icon>
         </v-tab>
 
         <v-divider class="tabDivider" vertical></v-divider>
