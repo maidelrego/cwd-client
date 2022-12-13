@@ -12,10 +12,10 @@
 
           <v-row class="mt-5">
             <v-col cols="12" sm="12" md="4" lg="4">
-              <v-text-field label="First Name" filled rounded dense />
+              <v-text-field v-model="firstName" label="First Name" filled rounded dense />
             </v-col>
             <v-col cols="12" sm="12" md="4" lg="4">
-              <v-text-field label="Last Name" filled rounded dense />
+              <v-text-field v-model="lastName" label="Last Name" filled rounded dense />
             </v-col>
             <v-col cols="12" sm="12" md="4" lg="4">
               <PhoneNumberMask v-model="phone" label="Phone" filled rounded dense />
@@ -24,96 +24,266 @@
 
           <v-row>
             <v-col cols="12">
-              <v-text-field label="E-mail" filled rounded dense />
+              <v-text-field v-model="email" label="E-mail" filled rounded dense />
             </v-col>
           </v-row>
 
           <v-row>
             <v-col cols="12">
-              <v-checkbox v-model="delivery" class="mt-0 pt-0" label="Delivery?" />
-              <v-subheader v-if="delivery" class="mt-0 pt-0">We need your address if you are choosing Delivery</v-subheader>
+              <v-radio-group v-model="installOrDelivery">
+                <v-radio label="Delivery?" value="Delivery"></v-radio>
+                <v-radio label="Install?" value="Install"></v-radio>
+              </v-radio-group>
+
+              <v-subheader v-if="installOrDelivery === 'Delivery'" class="mt-0 pt-0">We need your address if you are
+                choosing
+                Delivery</v-subheader>
             </v-col>
           </v-row>
 
-          <v-row v-if="delivery">
+          <v-row v-if="installOrDelivery === 'Delivery'">
             <v-col cols="12">
-              <v-text-field label="Address" filled rounded dense />
+              <v-text-field v-model="address" label="Address" filled rounded dense />
             </v-col>
             <v-col cols="12">
-              <v-text-field label="Address 2" filled rounded dense />
+              <v-text-field v-model="address2" label="Address 2" filled rounded dense />
             </v-col>
             <v-col cols="12" sm="12" md="4" lg="4">
-              <v-text-field label="City" filled rounded dense />
+              <v-text-field v-model="city" label="City" filled rounded dense />
             </v-col>
             <v-col cols="12" sm="12" md="4" lg="4">
-              <v-text-field label="State" filled rounded dense />
+              <v-text-field v-model="state" label="State" filled rounded dense />
             </v-col>
             <v-col cols="12" sm="12" md="4" lg="4">
-              <v-text-field label="Zip" filled rounded dense />
+              <v-text-field v-model="zip" label="Zip" filled rounded dense />
+            </v-col>
+          </v-row>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-btn text color="error">
+            Cancel
+          </v-btn>
+          <v-btn color="primary" @click="stepNumber = stepNumber + 1">
+            Continue<v-icon rigth>mdi-chevron-right</v-icon>
+          </v-btn>
+        </v-card-actions>
+
+      </v-card>
+    </v-stepper-content>
+
+    <v-stepper-step :complete="stepNumber > 2" step="2">
+      Door Design
+    </v-stepper-step>
+
+    <v-stepper-content step="2">
+      <v-card flat class="mb-5">
+        <v-card-text>
+          <img src="../assets/logo.png" class="logo">
+          <p class="text-center mainHeaders">Door Design</p>
+          <p class="text-center mt-5">All our doors are made out of high grade cabinet pine</p>
+
+          <v-row>
+            <v-col v-for="{ url, name } in doorDesignsUrls" :key="url" cols="12" sm="12" md="3" lg="3">
+              <v-card class="fill-height">
+                <v-img class="white--text align-end" :src="url" height="300" />
+                <v-card-text class="text-center">
+                  <p class="text-center aboutUsBody">{{ name }}</p>
+                  <v-btn icon large @click="doorDesign = name">
+                    <v-icon :color="doorDesign === name ? 'primary' : ''" x-large>mdi-heart</v-icon>
+                  </v-btn>
+                </v-card-text>
+              </v-card>
             </v-col>
           </v-row>
         </v-card-text>
       </v-card>
-      <v-btn color="primary" @click="stepNumber = 2">
-        Continue
-      </v-btn>
-      <v-btn text>
-        Cancel
-      </v-btn>
-    </v-stepper-content>
 
-    <v-stepper-step :complete="stepNumber > 2" step="2">
-      Configure analytics for this app
-    </v-stepper-step>
-
-    <v-stepper-content step="2">
-      <v-card color="grey lighten-1" class="mb-12" height="200px"></v-card>
-      <v-btn color="primary" @click="stepNumber = 3">
-        Continue
-      </v-btn>
-      <v-btn text>
-        Cancel
-      </v-btn>
+      <v-card-actions>
+        <v-btn text @click="stepNumber = stepNumber - 1">
+          <v-icon rigth>mdi-chevron-left</v-icon>Back
+        </v-btn>
+        <v-btn color="primary" @click="stepNumber = stepNumber + 1">
+          Continue<v-icon rigth>mdi-chevron-right</v-icon>
+        </v-btn>
+      </v-card-actions>
     </v-stepper-content>
 
     <v-stepper-step :complete="stepNumber > 3" step="3">
-      Select an ad format and name ad unit
+      Finish Color or Stain
     </v-stepper-step>
 
     <v-stepper-content step="3">
-      <v-card color="grey lighten-1" class="mb-12" height="200px"></v-card>
-      <v-btn color="primary" @click="stepNumber = 4">
-        Continue
-      </v-btn>
-      <v-btn text>
-        Cancel
-      </v-btn>
+      <v-card flat class="mb-5">
+        <v-card-text>
+          <img src="../assets/logo.png" class="logo">
+          <p class="text-center mainHeaders">Finish</p>
+
+          <v-row class="mt-5">
+            <v-col v-for="{ url, name } in finishColorsUrls" :key="url" cols="6" sm="6" md="2" lg="2">
+              <v-card class="fill-height">
+                <v-img class="white--text align-end" :src="url" />
+                <v-card-text class="text-center">
+                  <p class="text-center aboutUsBody">{{ name }}</p>
+                  <v-btn icon large @click="finishColor = name">
+                    <v-icon :color="finishColor === name ? 'primary' : ''" x-large>mdi-heart</v-icon>
+                  </v-btn>
+                </v-card-text>
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-card-text>
+      </v-card>
+
+      <v-card-actions>
+        <v-btn text @click="stepNumber = stepNumber - 1">
+          <v-icon rigth>mdi-chevron-left</v-icon>Back
+        </v-btn>
+        <v-btn color="primary" @click="stepNumber = stepNumber + 1">
+          Continue<v-icon rigth>mdi-chevron-right</v-icon>
+        </v-btn>
+      </v-card-actions>
+
     </v-stepper-content>
 
-    <v-stepper-step step="4">
-      View setup instructions
+    <v-stepper-step :complete="stepNumber > 4" step="4">
+      Door Kits
     </v-stepper-step>
     <v-stepper-content step="4">
-      <v-card color="grey lighten-1" class="mb-12" height="200px"></v-card>
-      <v-btn color="primary" @click="stepNumber = 1">
-        Continue
-      </v-btn>
-      <v-btn text>
-        Cancel
-      </v-btn>
+      <v-card flat class="mx-auto mb-5">
+        <v-card-text>
+          <img src="../assets/logo.png" class="logo">
+          <p class="text-center mainHeaders">Door Kits</p>
+
+          <v-row class="mt-5">
+            <v-col v-for="{ url, name } in doorKitsUrls" :key="url" cols="12" sm="12" md="4" lg="4">
+              <v-card class="fill-height">
+                <v-img class="white--text align-end" :src="url" />
+                <v-card-text class="text-center">
+                  <p class="text-center aboutUsBody">{{ name }}</p>
+                  <v-btn icon large @click="doorKit = name">
+                    <v-icon :color="doorKit === name ? 'primary' : ''" x-large>mdi-heart</v-icon>
+                  </v-btn>
+                </v-card-text>
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-btn text @click="stepNumber = stepNumber - 1">
+            <v-icon rigth>mdi-chevron-left</v-icon>Back
+          </v-btn>
+          <v-btn color="primary" @click="stepNumber = stepNumber + 1">
+            Continue<v-icon rigth>mdi-chevron-right</v-icon>
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+
+    </v-stepper-content>
+
+    <v-stepper-step :complete="stepNumber > 5" step="5">
+      Handles
+    </v-stepper-step>
+    <v-stepper-content step="5">
+      <v-card flat class="mx-auto mb-5">
+        <v-card-text>
+          <img src="../assets/logo.png" class="logo">
+          <p class="text-center mainHeaders">Handles</p>
+
+          <v-row class="mt-5">
+            <v-col v-for="{ url, name } in handlesUrls" :key="url" cols="6" sm="6" md="4" lg="4">
+              <v-card class="fill-height">
+                <v-img class="white--text align-end" :src="url" />
+                <v-card-text class="text-center">
+                  <p class="text-center aboutUsBody">{{ name }}</p>
+                  <v-btn icon large @click="doorHandle = name">
+                    <v-icon :color="doorHandle === name ? 'primary' : ''" x-large>mdi-heart</v-icon>
+                  </v-btn>
+                </v-card-text>
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-btn text @click="stepNumber = stepNumber - 1">
+            <v-icon rigth>mdi-chevron-left</v-icon>Back
+          </v-btn>
+          <v-btn color="primary" @click="stepNumber = stepNumber + 1">
+            Continue<v-icon rigth>mdi-chevron-right</v-icon>
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+
     </v-stepper-content>
   </v-stepper>
 </template>
 
 <script>
+import { doAPIGet } from '../lib/api'
+import { mapFields } from '../store/dataMappers'
+import { mapState, mapActions } from 'vuex'
+
 export default {
   name: 'QuotesPage',
   data() {
     return {
       stepNumber: 1,
-      phone: '',
-      delivery: false,
+      doorDesignsUrls: [],
+      finishColorsUrls: [],
+      doorKitsUrls: [],
+      handlesUrls: [],
     }
+  },
+  beforeMount() {
+    this.fetchCloudInages()
+  },
+  computed: {
+    ...mapState('Quotes', ['obj', 'error', 'changed']),
+    ...mapFields({
+      fields: [
+        'firstName',
+        'lastName',
+        'email',
+        'phone',
+        'address',
+        'city',
+        'state',
+        'zip',
+        'installOrDelivery',
+        'doorDesign',
+        'finishColor',
+        'doorKit',
+        'doorHandle'
+      ],
+      base: 'Quotes',
+      mutation: 'INIT_OBJECT'
+    })
+  },
+  watch: {
+    installOrDelivery(oldVal, val) {
+      if (oldVal !== val) {
+        this.resetAddress()
+      }
+    }
+  },
+  methods: {
+    ...mapActions('Quotes', ['clear', 'reset', 'saveData', 'resetAddress']),
+    async fetchCloudInages() {
+      await doAPIGet('cloudinary/doorDesigns').then((res) => {
+        this.doorDesignsUrls = res.data
+      })
+      await doAPIGet('cloudinary/finishColors').then((res) => {
+        this.finishColorsUrls = res.data
+      })
+      await doAPIGet('cloudinary/doorKits').then((res) => {
+        this.doorKitsUrls = res.data
+      })
+      await doAPIGet('cloudinary/handles').then((res) => {
+        this.handlesUrls = res.data
+      })
+    },
   },
 }
 </script>
