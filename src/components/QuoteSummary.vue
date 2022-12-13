@@ -42,7 +42,11 @@ export default {
   },
   computed: {
     fullAddress() {
-      return `${this.quote.address}, ${this.quote.city}, ${this.quote.state} ${this.quote.zip}`;
+      if (this.quote.address && this.quote.city && this.quote.state && this.quote.zip) {
+        return `${this.quote.address} ${this.quote.address2}, ${this.quote.city}, ${this.quote.state} ${this.quote.zip}`;
+      } else {
+        return '';
+      }
     },
     fullName() {
       return `${this.quote.firstName} ${this.quote.lastName}`;

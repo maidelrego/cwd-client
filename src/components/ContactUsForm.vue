@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mt-5" tile>
+  <v-card class="mt-5" flat tile>
     <v-row class="mt-5" justify="center">
       <v-col cols="6">
         <Error v-if="error" :err="error" />
