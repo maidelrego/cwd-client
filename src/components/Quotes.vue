@@ -1,75 +1,111 @@
 <template>
   <v-stepper v-model="stepNumber" vertical>
+    <!-- IF ERROR OCCURS, CHECK THIS FILE -->
+    <v-row class="mt-5" justify="center">
+      <v-col cols="6">
+        <Error v-if="error" :err="error" />
+      </v-col>
+    </v-row>
+    
     <v-stepper-step :complete="stepNumber > 1" step="1">
       Info
     </v-stepper-step>
 
     <v-stepper-content step="1">
-      <v-card flat class="mb-5">
-        <v-card-text>
-          <img src="../assets/logo.png" class="logo">
-          <p class="text-center mainHeaders">Info</p>
+      <ValidationObserver ref="Info" v-slot="{ valid }">
+        <v-card flat class="mb-5">
+          <v-card-text>
+            <img src="../assets/logo.png" class="logo">
+            <p class="text-center mainHeaders">Info</p>
 
-          <v-row class="mt-5" justify="center">
-            <v-col cols="12" sm="12" md="4" lg="4">
-              <v-text-field v-model="firstName" label="First Name" filled rounded dense clearable />
-            </v-col>
-            <v-col cols="12" sm="12" md="4" lg="4">
-              <v-text-field v-model="lastName" label="Last Name" filled rounded dense clearable />
-            </v-col>
-            <v-col cols="12" sm="12" md="4" lg="4">
-              <PhoneNumberMask v-model="phone" label="Phone" filled rounded dense clearable />
-            </v-col>
-          </v-row>
+            <v-row class="mt-5" justify="center">
+              <v-col cols="12" sm="12" md="4" lg="4">
+                <ValidationProvider name="First Name" rules="required" v-slot="{ errors }">
+                  <v-text-field v-model="firstName" label="First Name" filled rounded dense clearable />
+                  <span class="red--text">{{ errors[0] }}</span>
+                </ValidationProvider>
+              </v-col>
+              <v-col cols="12" sm="12" md="4" lg="4">
+                <ValidationProvider name="Last Name" rules="required" v-slot="{ errors }">
+                  <v-text-field v-model="lastName" label="Last Name" filled rounded dense clearable />
+                  <span class="red--text">{{ errors[0] }}</span>
+                </ValidationProvider>
+              </v-col>
+              <v-col cols="12" sm="12" md="4" lg="4">
+                <ValidationProvider name="Phone Number" rules="required|digits:10" v-slot="{ errors }">
+                  <PhoneNumberMask v-model="phone" label="Phone" filled rounded dense clearable />
+                  <span class="red--text">{{ errors[0] }}</span>
+                </ValidationProvider>
+              </v-col>
+            </v-row>
 
-          <v-row justify="center">
-            <v-col cols="12">
-              <v-text-field v-model="email" label="E-mail" filled rounded dense clearable />
-            </v-col>
-          </v-row>
+            <v-row justify="center">
+              <v-col cols="12">
+                <ValidationProvider name="E-mail" rules="required|email" v-slot="{ errors }">
+                  <v-text-field v-model="email" label="E-mail" filled rounded dense clearable />
+                  <span class="red--text">{{ errors[0] }}</span>
+                </ValidationProvider>
+              </v-col>
+            </v-row>
 
-          <v-row justify="start">
-            <v-col cols="6">
-              <v-radio-group v-model="installOrDelivery">
-                <v-radio label="Delivery?" value="Delivery"></v-radio>
-                <v-radio label="Install?" value="Install"></v-radio>
-              </v-radio-group>
+            <v-row justify="start">
+              <v-col cols="6">
+                <ValidationProvider name="Install or Delivery" rules="required" v-slot="{ errors }">
+                  <v-radio-group v-model="installOrDelivery">
+                    <v-radio label="Delivery?" value="Delivery"></v-radio>
+                    <v-radio label="Install?" value="Install"></v-radio>
+                  </v-radio-group>
+                  <span class="red--text">{{ errors[0] }}</span>
+                </ValidationProvider>
 
-              <v-subheader v-if="installOrDelivery === 'Delivery'" class="mt-0 pt-0">We need your address if you are
-                choosing
-                Delivery</v-subheader>
-            </v-col>
-          </v-row>
+                <v-subheader v-if="isDelivery" class="mt-0 pt-0">We need your address if you are
+                  choosing
+                  Delivery</v-subheader>
+              </v-col>
+            </v-row>
 
-          <v-row justify="center" v-if="installOrDelivery === 'Delivery'">
-            <v-col cols="12">
-              <v-text-field v-model="address" label="Address" filled rounded dense clearable />
-            </v-col>
-            <v-col cols="12">
-              <v-text-field v-model="address2" label="Address 2" filled rounded dense clearable />
-            </v-col>
-            <v-col cols="12" sm="12" md="4" lg="4">
-              <v-text-field v-model="city" label="City" filled rounded dense clearable />
-            </v-col>
-            <v-col cols="12" sm="12" md="4" lg="4">
-              <v-text-field v-model="state" label="State" filled rounded dense clearable />
-            </v-col>
-            <v-col cols="12" sm="12" md="4" lg="4">
-              <v-text-field v-model="zip" label="Zip" filled rounded dense clearable />
-            </v-col>
-          </v-row>
-        </v-card-text>
+            <v-row justify="center" v-if="isDelivery">
+              <v-col cols="12">
+                <ValidationProvider name="Address" :rules="isDelivery ? 'required' : ''" v-slot="{ errors }">
+                  <v-text-field v-model="address" label="Address" filled rounded dense clearable />
+                  <span class="red--text">{{ errors[0] }}</span>
+                </ValidationProvider>
+              </v-col>
+              <v-col cols="12">
+                <v-text-field v-model="address2" label="Address 2" filled rounded dense clearable />
+              </v-col>
+              <v-col cols="12" sm="12" md="4" lg="4">
+                <ValidationProvider name="City" :rules="isDelivery ? 'required' : ''" v-slot="{ errors }">
+                  <v-text-field v-model="city" label="City" filled rounded dense clearable />
+                  <span class="red--text">{{ errors[0] }}</span>
+                </ValidationProvider>
+              </v-col>
+              <v-col cols="12" sm="12" md="4" lg="4">
+                <ValidationProvider name="State" :rules="isDelivery ? 'required' : ''" v-slot="{ errors }">
+                  <v-text-field v-model="state" label="State" filled rounded dense clearable />
+                  <span class="red--text">{{ errors[0] }}</span>
+                </ValidationProvider>
+              </v-col>
+              <v-col cols="12" sm="12" md="4" lg="4">
+                <ValidationProvider name="Zip" :rules="isDelivery ? 'required|digits:5' : ''" v-slot="{ errors }">
+                  <v-text-field v-model.number="zip" label="Zip" type="number" filled rounded dense clearable />
+                  <span class="red--text">{{ errors[0] }}</span>
+                </ValidationProvider>
+              </v-col>
+            </v-row>
+          </v-card-text>
 
-        <v-card-actions>
-          <v-btn text color="error">
-            Cancel
-          </v-btn>
-          <v-btn color="primary" @click="stepNumber = stepNumber + 1">
-            Continue<v-icon rigth>mdi-chevron-right</v-icon>
-          </v-btn>
-        </v-card-actions>
+          <v-card-actions>
+            <v-btn text color="error">
+              Cancel
+            </v-btn>
+            <v-btn :disabled="!valid" color="primary" @click="stepNumber = stepNumber + 1">
+              Continue<v-icon rigth>mdi-chevron-right</v-icon>
+            </v-btn>
+          </v-card-actions>
 
-      </v-card>
+        </v-card>
+      </ValidationObserver>
     </v-stepper-content>
 
     <v-stepper-step :complete="stepNumber > 2" step="2">
@@ -103,7 +139,7 @@
         <v-btn text @click="stepNumber = stepNumber - 1">
           <v-icon rigth>mdi-chevron-left</v-icon>Back
         </v-btn>
-        <v-btn color="primary" @click="stepNumber = stepNumber + 1">
+        <v-btn :disabled="!doorDesign" color="primary" @click="stepNumber = stepNumber + 1">
           Continue<v-icon rigth>mdi-chevron-right</v-icon>
         </v-btn>
       </v-card-actions>
@@ -139,7 +175,7 @@
         <v-btn text @click="stepNumber = stepNumber - 1">
           <v-icon rigth>mdi-chevron-left</v-icon>Back
         </v-btn>
-        <v-btn color="primary" @click="stepNumber = stepNumber + 1">
+        <v-btn :disabled="!finishColor" color="primary" @click="stepNumber = stepNumber + 1">
           Continue<v-icon rigth>mdi-chevron-right</v-icon>
         </v-btn>
       </v-card-actions>
@@ -174,7 +210,7 @@
           <v-btn text @click="stepNumber = stepNumber - 1">
             <v-icon rigth>mdi-chevron-left</v-icon>Back
           </v-btn>
-          <v-btn color="primary" @click="stepNumber = stepNumber + 1">
+          <v-btn :disabled="!doorKit" color="primary" @click="stepNumber = stepNumber + 1">
             Continue<v-icon rigth>mdi-chevron-right</v-icon>
           </v-btn>
         </v-card-actions>
@@ -210,7 +246,7 @@
           <v-btn text @click="stepNumber = stepNumber - 1">
             <v-icon rigth>mdi-chevron-left</v-icon>Back
           </v-btn>
-          <v-btn color="primary" @click="stepNumber = stepNumber + 1">
+          <v-btn :disabled="!doorHandle" color="primary" @click="stepNumber = stepNumber + 1">
             Continue<v-icon rigth>mdi-chevron-right</v-icon>
           </v-btn>
         </v-card-actions>
@@ -229,8 +265,10 @@
 
           <v-row class="mt-5" justify="center">
             <v-col cols="12" sm="4" md="4" lg="4">
-              <v-text-field v-model="dimensionsW" label="Width" type="number" suffix="Inches" filled dense rounded clearable />
-              <v-text-field v-model="dimensionsH" label="Height" type="number" suffix="Inches" filled dense rounded clearable />
+              <v-text-field v-model.number="dimensionsW" label="Width" type="number" suffix="Inches" filled dense rounded
+                clearable />
+              <v-text-field v-model.number="dimensionsH" label="Height" type="number" suffix="Inches" filled dense rounded
+                clearable />
             </v-col>
           </v-row>
         </v-card-text>
@@ -277,9 +315,11 @@ import { doAPIGet } from '../lib/api'
 import { mapFields } from '../store/dataMappers'
 import { mapState, mapActions } from 'vuex'
 import QuotesSummary from './QuoteSummary.vue'
+import Error from './Error.vue'
 
 export default {
   components: {
+    Error,
     QuotesSummary
   },
   name: 'QuotesPage',
@@ -318,7 +358,10 @@ export default {
       ],
       base: 'Quotes',
       mutation: 'INIT_OBJECT'
-    })
+    }),
+    isDelivery() {
+      return this.installOrDelivery === 'Delivery'
+    },
   },
   watch: {
     installOrDelivery(oldVal, val) {
@@ -328,7 +371,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('Quotes', ['clear', 'reset', 'saveData', 'resetAddress']),
+    ...mapActions('Quotes', ['clear', 'clearError', 'reset', 'saveData', 'resetAddress']),
     async fetchCloudImages() {
       await doAPIGet('cloudinary/doorDesigns').then((res) => {
         this.doorDesignsUrls = res.data
