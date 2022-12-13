@@ -217,6 +217,29 @@
       </v-card>
 
     </v-stepper-content>
+
+    <v-stepper-step :complete="stepNumber > 6" step="6">
+      Review
+    </v-stepper-step>
+    <v-stepper-content step="6">
+      <v-card flat class="mx-auto mb-5">
+        <v-card-text>
+          <img src="../assets/logo.png" class="logo">
+          <p class="text-center mainHeaders">Review</p>
+          <QuotesSummary :quote="obj" />
+        </v-card-text>
+
+        <v-card-actions>
+          <v-btn text @click="stepNumber = stepNumber - 1">
+            <v-icon rigth>mdi-chevron-left</v-icon>Back
+          </v-btn>
+          <v-btn color="primary" @click="saveData">
+            Send<v-icon class="ml-2" rigth>mdi-send</v-icon>
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+
+    </v-stepper-content>
   </v-stepper>
 </template>
 
@@ -224,8 +247,12 @@
 import { doAPIGet } from '../lib/api'
 import { mapFields } from '../store/dataMappers'
 import { mapState, mapActions } from 'vuex'
+import QuotesSummary from './QuoteSummary.vue'
 
 export default {
+  components: {
+    QuotesSummary
+  },
   name: 'QuotesPage',
   data() {
     return {
@@ -248,6 +275,7 @@ export default {
         'email',
         'phone',
         'address',
+        'address2',
         'city',
         'state',
         'zip',
@@ -283,8 +311,9 @@ export default {
       await doAPIGet('cloudinary/handles').then((res) => {
         this.handlesUrls = res.data
       })
-    },
-  },
+    }
+  }
+  
 }
 </script>
 
