@@ -22,7 +22,6 @@
 import ContactUsForm from './ContactUsForm.vue'
 export default {
   components: { ContactUsForm },
-
 }
 </script>
 

@@ -371,7 +371,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('Quotes', ['clear', 'clearError', 'reset', 'saveData', 'resetAddress']),
+    ...mapActions('Quotes', ['saveData', 'resetAddress']),
     async fetchCloudImages() {
       await doAPIGet('cloudinary/doorDesigns').then((res) => {
         this.doorDesignsUrls = res.data
