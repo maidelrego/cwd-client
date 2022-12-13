@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto" flat>
+  <v-card flat>
     <v-parallax class="parallaxOpacity" src="../assets/parallax.jpg">
       <div class="textBox">
         <p class="headTextColor text-center">
