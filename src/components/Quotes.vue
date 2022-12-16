@@ -373,16 +373,16 @@ export default {
   methods: {
     ...mapActions('Quotes', ['saveData', 'resetAddress']),
     async fetchCloudImages() {
-      await doAPIGet('cloudinary/doorDesigns').then((res) => {
+      await doAPIGet('cloudinary-images/doorDesigns').then((res) => {
         this.doorDesignsUrls = res.data
       })
-      await doAPIGet('cloudinary/finishColors').then((res) => {
+      await doAPIGet('cloudinary-images/finishColors').then((res) => {
         this.finishColorsUrls = res.data
       })
-      await doAPIGet('cloudinary/doorKits').then((res) => {
+      await doAPIGet('cloudinary-images/doorKits').then((res) => {
         this.doorKitsUrls = res.data
       })
-      await doAPIGet('cloudinary/handles').then((res) => {
+      await doAPIGet('cloudinary-images/handles').then((res) => {
         this.handlesUrls = res.data
       })
     }

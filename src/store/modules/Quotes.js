@@ -20,6 +20,7 @@ function defaultState () {
     installOrDelivery: '',
     dimensionsH: 0,
     dimensionsW: 0,
+    isRead: false,
   }
 }
 

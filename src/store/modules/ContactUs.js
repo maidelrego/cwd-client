@@ -7,6 +7,7 @@ function defaultState () {
     name: '',
     email: '',
     message: '',
+    isRead: false
   }
 }
 

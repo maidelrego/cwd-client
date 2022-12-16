@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     async getGalleryImages() {
-      await doAPIGet('cloudinary/galleryImages').then((res) => {
+      await doAPIGet('cloudinary-images/galleryImages').then((res) => {
         this.galleryImages = res.data
       })
     }
